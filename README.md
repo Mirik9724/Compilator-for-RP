@@ -1,6 +1,6 @@
 # Compilator-for-RP
 
-we run the file and it archives everything except itself, .env, the "Ignore" and ".idea" folders.
+we run the Compilator-for-RP.py and it archives everything except itself, .env, the "Ignore" and ".idea" folders.
 IMPORTANT the pack.mcmeta file is created itself during compilation. Versions supported are only releases from 1.6.1-latest. 20w14infinite and other snapshots/pre-releases/betas are not supported yet
 
 ## .env configuration:
