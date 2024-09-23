@@ -7,10 +7,15 @@ IMPORTANT the pack.mcmeta file is created itself during compilation
 ### Archive
 
 name - project name
+
 version - project version
+
 build - build number
 
 ### pack.mcmeta
 MINECRAFT_VERSION - game version (for example 1.12.2)
-DESCRIPTION=pack description
+
+DESCRIPTION - pack description
+
 SUPPORTED_VERSIONS - versions that the pack supports (for example 1.20.1)
+
