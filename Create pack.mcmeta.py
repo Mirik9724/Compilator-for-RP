@@ -7,13 +7,6 @@ from dotenv import load_dotenv
 env_file = '.env'
 load_dotenv()
 
-
-# Имя архива
-archive_name = str(os.getenv('name'))+'-'+str(os.getenv('version'))+'-'+str(os.getenv('build'))+'.zip'
-
-# Получаем имя текущего скрипта
-script_name = os.path.basename(__file__)
-
 # Функция для разбора списков из строки
 def parse_list(env_value):
     return env_value.split(',') if env_value else []
@@ -147,8 +140,6 @@ if include_sounds:
         } for i in range(len(sound_names))
     }
 
-# Путь к файлу в папке, где находится скрипт
-script_dir = os.path.dirname(os.path.abspath(__file__))  # Получаем путь к скрипту
 file_path = os.path.join('pack.mcmeta')
 
 # Запись данных в JSON файл
@@ -159,26 +150,3 @@ try:
 
 except Exception as e:
     print(f'Ошибка при записи файла: {e}')
-
-
-# Открываем zip файл для записи
-with zipfile.ZipFile(archive_name, 'w') as zipf:
-    for root, dirs, files in os.walk('.'):
-        # Пропускаем папку Ignore
-        if 'Ignore' in root:
-            continue
-
-        if '.idea' in root:
-            continue
-
-        if 'assets/minecraft/optifine/cit/unrelease'in root:
-            continue
-
-        for file in files:
-            # Пропускаем .env и текущий скрипт
-            if file not in ['.env', script_name, 'Create pack.mcmeta.py', archive_name]:
-                file_path = os.path.join(root, file)
-                zipf.write(file_path)
-
-os.remove("pack.mcmeta")
-print("compilation completen")
