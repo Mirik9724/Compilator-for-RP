@@ -60,7 +60,7 @@ description = os.getenv("DESCRIPTION")
 supported_versions = parse_list(os.getenv("SUPPORTED_VERSIONS"))
 min_versions = parse_list(os.getenv("min_version"))
 max_versions = parse_list(os.getenv("max_version"))
-version_type = parse_list(os.getenv("VERSION_TYPE"))
+version_type = str(parse_list(os.getenv("VERSION_TYPE")))
 
 include_language = os.getenv("INCLUDE_LANGUAGE") == 'True'
 include_credits = os.getenv("INCLUDE_CREDITS") == 'True'
@@ -100,6 +100,7 @@ if pack_format is None:
     print("Ошибка: Неверная версия Minecraft для определения формата пакета!")
     exit(1)
 
+version_type == "range"
 if version_type == "range":
     if not min_versions or not max_versions:
         print("Ошибка: Не заданы минимальные или максимальные версии!")
