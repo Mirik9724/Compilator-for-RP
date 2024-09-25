@@ -20,13 +20,6 @@ MINECRAFT_VERSION - game version (for example 1.12.2) [more details here](https:
 
 DESCRIPTION - pack description
 
-VERSION_TYPE=range 
-range - range of versions, specific - versions separated by commas
-
-min_version=1.16 - Minimum version
-
-max_version=1.21.1 - maximum version
-
-SUPPORTED_VERSIONS - versions that the pack supports (for example 1.20.1, 1.12.2)
+SUPPORTED_VERSIONS - versions that the pack supports (for example 1.20.1, 1.12.2) mapping in mapping.txt
 
 [Read more here](https://minecraft.wiki/w/Pack.mcmeta)
