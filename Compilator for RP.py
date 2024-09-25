@@ -58,6 +58,8 @@ def get_supported_formats(versions):
 minecraft_version = os.getenv("MINECRAFT_VERSION")
 description = os.getenv("DESCRIPTION")
 supported_versions = parse_list(os.getenv("SUPPORTED_VERSIONS"))
+min_versions = parse_list(os.getenv("min_version"))
+max_versions = parse_list(os.getenv("max_version"))
 include_language = os.getenv("INCLUDE_LANGUAGE") == 'True'
 include_credits = os.getenv("INCLUDE_CREDITS") == 'True'
 include_animation = os.getenv("INCLUDE_ANIMATION") == 'True'
@@ -101,7 +103,7 @@ pack_data = {
     "pack": {
         "pack_format": pack_format,
         "description": description,
-        "supported_formats": get_supported_formats(supported_versions)
+        "supported_formats": { "min_inclusive": get_pack_format(min_versions), "max_inclusive": get_pack_format(max_versions)}, #get_supported_formats(supported_versions) #
     }
 }
 
