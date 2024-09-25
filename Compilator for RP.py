@@ -58,6 +58,10 @@ def get_supported_formats(versions):
 minecraft_version = os.getenv("MINECRAFT_VERSION")
 description = os.getenv("DESCRIPTION")
 supported_versions = parse_list(os.getenv("SUPPORTED_VERSIONS"))
+min_versions = parse_list(os.getenv("min_version"))
+max_versions = parse_list(os.getenv("max_version"))
+version_type = parse_list(os.getenv("VERSION_TYPE"))
+
 include_language = os.getenv("INCLUDE_LANGUAGE") == 'True'
 include_credits = os.getenv("INCLUDE_CREDITS") == 'True'
 include_animation = os.getenv("INCLUDE_ANIMATION") == 'True'
@@ -96,14 +100,53 @@ if pack_format is None:
     print("Ошибка: Неверная версия Minecraft для определения формата пакета!")
     exit(1)
 
-# Создание структуры JSON для pack.mcmeta
-pack_data = {
-    "pack": {
-        "pack_format": pack_format,
-        "description": description,
-        "supported_formats": get_supported_formats(supported_versions)
+version_type = "range"  # Задайте 'range' или 'specific' здесь
+if version_type == "range":
+    if not min_versions or not max_versions:
+        print("Ошибка: Не заданы минимальные или максимальные версии!")
+        exit(1)
+
+    min_pack_format = get_pack_format(min_versions[0])
+    max_pack_format = get_pack_format(max_versions[0])
+
+    if min_pack_format is None or max_pack_format is None:
+        print("Ошибка: Неверный диапазон версий!")
+        exit(1)
+
+    pack_data = {
+        "pack": {
+            "pack_format": pack_format,
+            "description": description,
+            "supported_formats": {
+                "min_inclusive": min_pack_format,
+                "max_inclusive": max_pack_format
+            }
+        }
     }
-}
+
+elif version_type == "specific":
+    if not supported_versions:
+        print("Ошибка: Не заданы поддерживаемые версии!")
+        exit(1)
+
+    supported_formats = get_supported_formats(supported_versions)
+    if not supported_formats:
+        print("Ошибка: Неверные поддерживаемые версии!")
+        exit(1)
+
+    pack_data = {
+        "pack": {
+            "pack_format": pack_format,
+            "description": description,
+            "supported_formats": supported_formats
+        }
+    }
+
+else:
+    print("Ошибка: Неверный тип поддержки версий! Используйте 'range' или 'specific'.")
+    exit(1)
+
+
 
 # Добавляем поддержку языков, если она включена
 if include_language:
