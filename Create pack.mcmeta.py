@@ -100,7 +100,6 @@ if pack_format is None:
     print("Ошибка: Неверная версия Minecraft для определения формата пакета!")
     exit(1)
 
-version_type = "range"  # Задайте 'range' или 'specific' здесь
 if version_type == "range":
     if not min_versions or not max_versions:
         print("Ошибка: Не заданы минимальные или максимальные версии!")
