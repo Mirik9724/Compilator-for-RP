@@ -8,12 +8,6 @@ env_file = '.env'
 load_dotenv()
 
 
-# Имя архива
-archive_name = str(os.getenv('name'))+'-'+str(os.getenv('version'))+'-'+str(os.getenv('build'))+'.zip'
-
-# Получаем имя текущего скрипта
-script_name = os.path.basename(__file__)
-
 # Функция для разбора списков из строки
 def parse_list(env_value):
     return env_value.split(',') if env_value else []
@@ -60,7 +54,7 @@ description = os.getenv("DESCRIPTION")
 supported_versions = parse_list(os.getenv("SUPPORTED_VERSIONS"))
 min_versions = parse_list(os.getenv("min_version"))
 max_versions = parse_list(os.getenv("max_version"))
-version_type = parse_list(os.getenv("VERSION_TYPE"))
+version_type = str(parse_list(os.getenv("VERSION_TYPE")))
 
 include_language = os.getenv("INCLUDE_LANGUAGE") == 'True'
 include_credits = os.getenv("INCLUDE_CREDITS") == 'True'
@@ -94,56 +88,25 @@ sound_categories = parse_list(os.getenv("SOUND_CATEGORIES"))
 sound_names = parse_list(os.getenv("SOUND_NAMES"))
 sound_paths = parse_list(os.getenv("SOUND_PATHS"))
 
+
 # Получение формата пакета
 pack_format = get_pack_format(minecraft_version)
 if pack_format is None:
     print("Ошибка: Неверная версия Minecraft для определения формата пакета!")
     exit(1)
 
-if version_type == "range":
-    if not min_versions or not max_versions:
-        print("Ошибка: Не заданы минимальные или максимальные версии!")
-        exit(1)
 
-    min_pack_format = get_pack_format(min_versions[0])
-    max_pack_format = get_pack_format(max_versions[0])
+supported_formats = get_supported_formats(supported_versions)
 
-    if min_pack_format is None or max_pack_format is None:
-        print("Ошибка: Неверный диапазон версий!")
-        exit(1)
 
-    pack_data = {
-        "pack": {
-            "pack_format": pack_format,
-            "description": description,
-            "supported_formats": {
-                "min_inclusive": min_pack_format,
-                "max_inclusive": max_pack_format
-            }
+pack_data = {
+    "pack": {
+        "pack_format": pack_format,
+        "description": description,
+        "supported_formats": supported_formats
         }
     }
 
-elif version_type == "specific":
-    if not supported_versions:
-        print("Ошибка: Не заданы поддерживаемые версии!")
-        exit(1)
-
-    supported_formats = get_supported_formats(supported_versions)
-    if not supported_formats:
-        print("Ошибка: Неверные поддерживаемые версии!")
-        exit(1)
-
-    pack_data = {
-        "pack": {
-            "pack_format": pack_format,
-            "description": description,
-            "supported_formats": supported_formats
-        }
-    }
-
-else:
-    print("Ошибка: Неверный тип поддержки версий! Используйте 'range' или 'specific'.")
-    exit(1)
 
 
 
@@ -189,6 +152,8 @@ if include_sounds:
         } for i in range(len(sound_names))
     }
 
+# Путь к файлу в папке, где находится скрипт
+script_dir = os.path.dirname(os.path.abspath(__file__))  # Получаем путь к скрипту
 file_path = os.path.join('pack.mcmeta')
 
 # Запись данных в JSON файл
@@ -202,4 +167,4 @@ except Exception as e:
 
 
 
-print("create pack.mcmeta")
+print("pack.mcmeta completen")
