@@ -102,14 +102,14 @@ if pack_format is None:
     exit(1)
 
 
-    supported_formats = get_supported_formats(supported_versions)
+supported_formats = get_supported_formats(supported_versions)
 
 
-    pack_data = {
-        "pack": {
-            "pack_format": pack_format,
-            "description": description,
-            "supported_formats": supported_formats
+pack_data = {
+    "pack": {
+        "pack_format": pack_format,
+        "description": description,
+        "supported_formats": supported_formats
         }
     }
 
