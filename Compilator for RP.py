@@ -94,14 +94,22 @@ sound_categories = parse_list(os.getenv("SOUND_CATEGORIES"))
 sound_names = parse_list(os.getenv("SOUND_NAMES"))
 sound_paths = parse_list(os.getenv("SOUND_PATHS"))
 
+
 # Получение формата пакета
 pack_format = get_pack_format(minecraft_version)
 if pack_format is None:
     print("Ошибка: Неверная версия Minecraft для определения формата пакета!")
     exit(1)
 
-version_type == "range"
-if version_type == "range":
+pack_data = {
+        "pack": {
+            "pack_format": pack_format,
+            "description": description,
+        }
+    }
+
+
+if version_type == "range1":
     if not min_versions or not max_versions:
         print("Ошибка: Не заданы минимальные или максимальные версии!")
         exit(1)
@@ -124,7 +132,7 @@ if version_type == "range":
         }
     }
 
-elif version_type == "specific":
+elif version_type == "specific1":
     if not supported_versions:
         print("Ошибка: Не заданы поддерживаемые версии!")
         exit(1)
@@ -142,9 +150,6 @@ elif version_type == "specific":
         }
     }
 
-else:
-    print("Ошибка: Неверный тип поддержки версий! Используйте 'range' или 'specific'.")
-    exit(1)
 
 
 
