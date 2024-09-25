@@ -101,46 +101,9 @@ if pack_format is None:
     print("Ошибка: Неверная версия Minecraft для определения формата пакета!")
     exit(1)
 
-pack_data = {
-        "pack": {
-            "pack_format": pack_format,
-            "description": description,
-        }
-    }
-
-
-if version_type == "range1":
-    if not min_versions or not max_versions:
-        print("Ошибка: Не заданы минимальные или максимальные версии!")
-        exit(1)
-
-    min_pack_format = get_pack_format(min_versions[0])
-    max_pack_format = get_pack_format(max_versions[0])
-
-    if min_pack_format is None or max_pack_format is None:
-        print("Ошибка: Неверный диапазон версий!")
-        exit(1)
-
-    pack_data = {
-        "pack": {
-            "pack_format": pack_format,
-            "description": description,
-            "supported_formats": {
-                "min_inclusive": min_pack_format,
-                "max_inclusive": max_pack_format
-            }
-        }
-    }
-
-elif version_type == "specific1":
-    if not supported_versions:
-        print("Ошибка: Не заданы поддерживаемые версии!")
-        exit(1)
 
     supported_formats = get_supported_formats(supported_versions)
-    if not supported_formats:
-        print("Ошибка: Неверные поддерживаемые версии!")
-        exit(1)
+
 
     pack_data = {
         "pack": {
