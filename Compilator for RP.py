@@ -109,7 +109,7 @@ pack_data = {
     "pack": {
         "pack_format": pack_format,
         "description": description,
-        "supported_formats": supported_formats
+        "supported_formats": get_supported_formats(supported_versions)
         }
     }
 
