@@ -96,14 +96,19 @@ if pack_format is None:
     exit(1)
 
 
-supported_formats = get_supported_formats(supported_versions)
+# Функция для получения форматов для нескольких версий
+def get_pack_formats_for_versions(versions):
+    # Убираем лишние пробелы, если они есть, и получаем формат для каждой версии
+    formats = [get_pack_format(version.strip()) for version in versions]
+
+    return formats
 
 
 pack_data = {
     "pack": {
         "pack_format": pack_format,
         "description": description,
-        "supported_formats": get_supported_formats(supported_versions)
+        "supported_formats": get_pack_formats_for_versions(supported_versions)
         }
     }
 
