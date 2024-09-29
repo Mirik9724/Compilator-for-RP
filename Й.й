@@ -1,12 +1,6 @@
-# Функция для получения форматов для нескольких версий
-def get_pack_formats_for_versions(version_string):
-    # Разделяем строку на отдельные версии
-    versions = version_string.split(',')
-    
-    # Убираем лишние пробелы из версий
-    versions = [version.strip() for version in versions]
-    
-    # Получаем формат для каждой версии
-    formats = [get_pack_format(version) for version in versions]
+# Функция для получения форматов для списка версий
+def get_pack_formats_for_versions(versions):
+    # Убираем лишние пробелы, если они есть, и получаем формат для каждой версии
+    formats = [get_pack_format(version.strip()) for version in versions]
     
     return formats
