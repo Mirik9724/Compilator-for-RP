@@ -1,0 +1,10 @@
+# Функция для обработки списка версий и получения соответствующих pack_format
+def map_supported_versions(versions):
+    mapped_formats = []
+    for version in versions:
+        pack_format = get_pack_format(version)
+        if pack_format:
+            mapped_formats.append(f"{version}: {pack_format}")
+        else:
+            print(f"Ошибка: Версия {version} не поддерживается.")
+    return mapped_formats
